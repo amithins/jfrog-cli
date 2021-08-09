@@ -155,7 +155,7 @@ rpmSign()(
   local gpgFileInHost="${JFROG_CLI_PKG}/${RPM_SIGN_KEY_NAME}"
   local rpmSignScript="rpm-sign.sh"
 
-  log "---------- 1"
+  log "aaaaaaaaaa 1"
 
 
 	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
