@@ -153,6 +153,10 @@ rpmSign()(
   local passphrase="${RPM_SIGN_PASSPHRASE}"
   local gpgFileInImage="/opt/${RPM_SIGN_KEY_NAME}"
   local gpgFileInHost="${JFROG_CLI_PKG}/${RPM_SIGN_KEY_NAME}"
+
+  echo "*************** 1"
+  echo "$gpgFileInHost"	
+
   local rpmSignScript="rpm-sign.sh"
 
 
