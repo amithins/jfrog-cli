@@ -16,9 +16,9 @@ node {
     repo = 'jfrog-cli'
     sh 'rm -rf temp'
     sh 'mkdir temp'
-    def goRoot = tool 'go-1.14.x'
-    env.GOROOT="$goRoot"
-    env.PATH+=":${goRoot}/bin"
+    // def goRoot = tool 'go-1.14.x'
+    // env.GOROOT="$goRoot"
+    // env.PATH+=":${goRoot}/bin"
     env.GO111MODULE="on"
     env.JFROG_CLI_OFFER_CONFIG="false"
 
