@@ -145,6 +145,9 @@ createRPMPackage(){
 }
 
 rpmSign()(
+
+echo "*************** 1"
+
   local flavour=rpm
   local fileName="${JFROG_CLI_PREFIX}-${VERSION_FORMATTED}.${flavour}"
   local filePath="${JFROG_CLI_PKG}"/${fileName}
@@ -154,7 +157,7 @@ rpmSign()(
   local gpgFileInImage="/opt/${RPM_SIGN_KEY_NAME}"
   local gpgFileInHost="${JFROG_CLI_PKG}/${RPM_SIGN_KEY_NAME}"
 
-  echo "*************** 1"
+  echo "*************** 2
   echo "$gpgFileInHost"	
 
   local rpmSignScript="rpm-sign.sh"
@@ -345,6 +348,8 @@ main(){
 	log "Version being built is $JFROG_CLI_VERSION"
 
 	checkDockerAccess
+
+echo "*************** 0"
 
 	for flavour in $flavours; do
     createPackage "$flavour"
