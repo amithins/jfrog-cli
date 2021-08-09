@@ -28,9 +28,9 @@ node {
         stage('Clone JFrog CLI sources') {
             sh 'git clone https://github.com/jfrog/jfrog-cli.git'
             dir("$repo") {
-                if (BRANCH?.trim()) {
-                    sh "git checkout $BRANCH"
-                }
+                // if (BRANCH?.trim()) {
+                    sh "git checkout dev"
+                // }
             }
         }
 
