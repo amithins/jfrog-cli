@@ -26,10 +26,10 @@ node {
         cliWorkspace = pwd()
         sh "echo cliWorkspace=$cliWorkspace"
         stage('Clone JFrog CLI sources') {
-            sh 'git clone https://github.com/jfrog/jfrog-cli.git'
+            sh 'git clone https://github.com/eyalbe4/jfrog-cli.git'
             dir("$repo") {
                 // if (BRANCH?.trim()) {
-                    sh "git checkout dev"
+                    sh "git checkout rpm-signing"
                 // }
             }
         }
