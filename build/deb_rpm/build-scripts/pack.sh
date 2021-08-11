@@ -274,6 +274,14 @@ main(){
                 JFROG_CLI_RUN_TEST="true"
                 shift 1
             ;;
+            --rpm-gpg-key)
+                RPM_GPG_KEY="$2"
+                shift 2
+            ;;
+            --rpm-gpg-passphrase)
+                RPM_SIGN_PASSPHRASE="$2"
+                shift 2
+            ;;
             *)
                 usage
                 exit 1
