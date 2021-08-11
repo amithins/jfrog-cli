@@ -344,21 +344,21 @@ main(){
 	[ -f   "$JFROG_CLI_BINARY" ]    || exitWithUsage "jfrog cli binary is not available at $JFROG_CLI_BINARY"
 	[ ! -z "${JFROG_CLI_VERSION}" ] || exitWithUsage "version is not passed, pass the version to be built"
 
-  if [[ "$flavours" == *"rpm"* ]] && [[ -z "${RPM_SIGN_PASSPHRASE}" || "${RPM_SIGN_PASSPHRASE}" == "" ]]; then
-    echo "ERROR: RPM_SIGN_PASSPHRASE environment variable is not set"
-    exit 1
-  fi
+#  if [[ "$flavours" == *"rpm"* ]] && [[ -z "${RPM_SIGN_PASSPHRASE}" || "${RPM_SIGN_PASSPHRASE}" == "" ]]; then
+#    echo "ERROR: RPM_SIGN_PASSPHRASE environment variable is not set"
+#    exit 1
+#  fi
 
 	log "Flavours being built are: $flavours"
 	log "Version being built is $JFROG_CLI_VERSION"
 
 	checkDockerAccess
 
-	for flavour in $flavours; do
-    createPackage "$flavour"
-    [[ "${flavour}" == "rpm" ]]             && rpmSign               || true
-    [[ "${JFROG_CLI_RUN_TEST}" == "true" ]] && runTests "${flavour}" || true
-	done
+#	for flavour in $flavours; do
+#    createPackage "$flavour"
+#    [[ "${flavour}" == "rpm" ]]             && rpmSign               || true
+#    [[ "${JFROG_CLI_RUN_TEST}" == "true" ]] && runTests "${flavour}" || true
+#	done
 
 	log "...and Done!"
 }
