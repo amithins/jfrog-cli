@@ -325,7 +325,7 @@ main(){
 	log "RPM_GPG_KEY"
 	log "$RPM_GPG_KEY"
 	log "RPM_GPG_PASSPHRASE"
-	log "$RPM_GPG_PASSPHRASE
+	log "$RPM_GPG_PASSPHRASE"
 
 	: ${flavours:="rpm deb"}
 	: ${JFROG_CLI_RUN_TEST:="false"}
