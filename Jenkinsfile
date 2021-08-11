@@ -103,7 +103,7 @@ def buildRpmAndDeb(version, architectures) {
         //     }
         // }
 
-        withCredentials([string(credentialsId: 'rpm-gpg-key', variable: 'rpmGpgKey'), file(credentialsId: 'rpm-sign-passphrase', variable: 'rpmSignPassphrase')]) {
+        withCredentials([string(credentialsId: 'rpm-gpg-key', variable: 'rpmGpgKey'), string(credentialsId: 'rpm-sign-passphrase', variable: 'rpmSignPassphrase')]) {
             print "rpmGpgKey: $rpmGpgKey"
             print "rpmSignPassphrase: $rpmSignPassphrase"
         }
