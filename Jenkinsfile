@@ -104,15 +104,15 @@ def buildRpmAndDeb(version, architectures) {
             //     }
             // }
 
-//             if (currentBuild.rpmImage) {
-//                 stage("Build rpm ${currentBuild.pkg}") {
-//                     build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
-//                     dir("$jfrogCliRepoDir") {
-//                         sh "build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rpmGpgKey --rpm-gpg-passphrase $rpmSignPassphrase"
-//                         built = true
-//                     }
-//                 }
-//             }
+            if (currentBuild.rpmImage) {
+                stage("Build rpm ${currentBuild.pkg}") {
+                    build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
+                    dir("$jfrogCliRepoDir") {
+                        // sh "build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rpmGpgKey --rpm-gpg-passphrase $rpmSignPassphrase"
+                        built = true
+                    }
+                }
+            }
 
         // if (built) {
         //     stage("Deploy deb and rpm") {
