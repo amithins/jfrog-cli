@@ -102,6 +102,12 @@ def buildRpmAndDeb(version, architectures) {
         //         }
         //     }
         // }
+
+        withCredentials([file(credentialsId: 'rpm-gpg-key', variable: 'rpmGpgKey'), string(credentialsId: 'rpm-sign-passphrase', variable: 'rpmSignPassphrase')]) {
+            print "rpmGpgKey: $rpmGpgKey"
+            print "rpmSignPassphrase: $rpmSignPassphrase"
+        }
+
         if (currentBuild.rpmImage) {
             stage("Build rpm ${currentBuild.pkg}") {
                 build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
