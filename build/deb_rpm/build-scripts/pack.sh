@@ -145,36 +145,33 @@ createRPMPackage(){
 }
 
 rpmSign()(
-  local flavour=rpm
-  local fileName="${JFROG_CLI_PREFIX}-${VERSION_FORMATTED}.${flavour}"
-  local filePath="${JFROG_CLI_PKG}"/${fileName}
-  local filePathInImage="/opt/${fileName}"
-  local keYID="${RPM_SIGN_KEY_ID}"
-  local passphrase="${RPM_SIGN_PASSPHRASE}"
-  local gpgFileInImage="/opt/${RPM_SIGN_KEY_NAME}"
-  local gpgFileInHost="${JFROG_CLI_PKG}/${RPM_SIGN_KEY_NAME}"
-  local rpmSignScript="rpm-sign.sh"
+#   local flavour=rpm
+#   local fileName="${JFROG_CLI_PREFIX}-${VERSION_FORMATTED}.${flavour}"
+#   local filePath="${JFROG_CLI_PKG}"/${fileName}
+#   local filePathInImage="/opt/${fileName}"
+#   local keYID="${RPM_SIGN_KEY_ID}"
+#   local passphrase="${RPM_SIGN_PASSPHRASE}"
+#   local gpgFileInImage="/opt/${RPM_SIGN_KEY_NAME}"
+#   local gpgFileInHost="${JFROG_CLI_PKG}/${RPM_SIGN_KEY_NAME}"
+#   local rpmSignScript="rpm-sign.sh"
 
-  log "aaaaaaaaaa 1"
-
-
-	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
-		log ""; log "";
-		log "Initiating rpm sign on ${filePath}..."
-		docker run --rm -it --name cli-rpm-sign -v "${filePath}":${filePathInImage} \
-            -v "${gpgFileInHost}":"${gpgFileInImage}" \
-            -v "${JFROG_CLI_HOME}/build-scripts":${RPM_IMAGE_ROOT_DIR}/src \
-            ${RPM_SIGN_IMAGE} \
-                bash -c "yum install -y expect rpm-sign pinentry && \
-                        ${RPM_IMAGE_ROOT_DIR}/src/${rpmSignScript} \"${gpgFileInImage}\" \"${keYID}\" \"${passphrase}\" \"${filePathInImage}\" \
-                        && exit 0 || exit 1" \
-            || { echo "ERROR: ############### RPM Sign Failed! ###################"; exit 1; }
-		log "############## RPM is signed! ##################"
-		log ""; log "";
-	else
-		echo "ERROR: Could not find ${filePath} or ${gpgFileInHost}"
-		exit 1
-	fi
+# 	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
+# 		log ""; log "";
+# 		log "Initiating rpm sign on ${filePath}..."
+# 		docker run --rm -it --name cli-rpm-sign -v "${filePath}":${filePathInImage} \
+# 			-v "${gpgFileInHost}":"${gpgFileInImage}" \
+# 			-v "${JFROG_CLI_HOME}/build-scripts":${RPM_IMAGE_ROOT_DIR}/src \
+# 			${RPM_SIGN_IMAGE} \
+# 				bash -c "yum install -y expect rpm-sign pinentry && \
+# 						${RPM_IMAGE_ROOT_DIR}/src/${rpmSignScript} \"${gpgFileInImage}\" \"${keYID}\" \"${passphrase}\" \"${filePathInImage}\" \
+# 						&& exit 0 || exit 1" \
+# 			|| { echo "ERROR: ############### RPM Sign Failed! ###################"; exit 1; }
+# 		log "############## RPM is signed! ##################"
+# 		log ""; log "";
+# 	else
+# 		echo "ERROR: Could not find ${filePath} or ${gpgFileInHost}"
+# 		exit 1
+# 	fi
 )
 
 runTests()(
@@ -310,12 +307,25 @@ main(){
                 JFROG_CLI_RUN_TEST="true"
                 shift 1
             ;;
+            --rpm-gpg-key)
+                RPM_GPG_KEY="$2"
+                shift 2
+            ;;
+            --rpm-gpg-passphrase)
+                RPM_SIGN_PASSPHRASE="$2"
+                shift 2
+            ;;
             *)
                 usage
                 exit 1
             ;;
         esac
     done
+
+	log "RPM_GPG_KEY"
+	log "$RPM_GPG_KEY"
+	log "RPM_GPG_PASSPHRASE"
+	log "$RPM_GPG_PASSPHRASE
 
 	: ${flavours:="rpm deb"}
 	: ${JFROG_CLI_RUN_TEST:="false"}
