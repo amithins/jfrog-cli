@@ -81,9 +81,9 @@ def downloadToolsCert() {
     stage('Download tools cert') {
         // Download the certificate file and key file, used for signing the JFrog CLI binary.
         withCredentials([string(credentialsId: 'download-signing-cert-access-token', variable: 'DOWNLOAD_SIGNING_CERT_ACCESS_TOKEN')]) {
-        sh """#!/bin/bash
-            builder/jfrog rt dl installation-files/certificates/jfrog/jfrogltd_signingcer_full.tar.gz --url https://entplus.jfrog.io/artifactory --flat --access-token=$DOWNLOAD_SIGNING_CERT_ACCESS_TOKEN
-            """
+            sh """#!/bin/bash
+                builder/jfrog rt dl installation-files/certificates/jfrog/jfrogltd_signingcer_full.tar.gz --url https://entplus.jfrog.io/artifactory --flat --access-token=$DOWNLOAD_SIGNING_CERT_ACCESS_TOKEN
+                """
         }
         sh 'tar -xvzf jfrogltd_signingcer_full.tar.gz'
     }
@@ -104,16 +104,15 @@ def buildRpmAndDeb(version, architectures) {
             //     }
             // }
 
-            if (currentBuild.rpmImage) {
-                stage("Build rpm ${currentBuild.pkg}") {
-                    build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
-                    dir("$jfrogCliRepoDir") {
-                        sh "build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rpmGpgKey --rpm-gpg-passphrase $rpmSignPassphrase"
-                        built = true
-                    }
-                }
-            }
-        }
+//             if (currentBuild.rpmImage) {
+//                 stage("Build rpm ${currentBuild.pkg}") {
+//                     build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
+//                     dir("$jfrogCliRepoDir") {
+//                         sh "build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rpmGpgKey --rpm-gpg-passphrase $rpmSignPassphrase"
+//                         built = true
+//                     }
+//                 }
+//             }
 
         // if (built) {
         //     stage("Deploy deb and rpm") {
@@ -126,7 +125,8 @@ def buildRpmAndDeb(version, architectures) {
         //                 """
         //         }
         //     }
-        // } 
+        // }
+        }
     }
 }
 
