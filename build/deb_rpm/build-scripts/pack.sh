@@ -165,7 +165,8 @@ log "${filePath}"
  			-v "${gpgFileInHost}":"${gpgFileInImage}" \
  			-v "${JFROG_CLI_HOME}/build-scripts":${RPM_IMAGE_ROOT_DIR}/src \
  			${RPM_SIGN_IMAGE} \
- 				bash -c "yum install -y expect rpm-sign pinentry \
+ 				bash -c "yum install -y expect rpm-sign pinentry && \
+ 						${RPM_IMAGE_ROOT_DIR}/src/${rpmSignScript} \"${gpgFileInImage}\" \"${keYID}\" \"${passphrase}\" \"${filePathInImage}\" \
  						&& exit 0 || exit 1" \
  			|| { echo "ERROR: ############### RPM Sign Failed! ###################"; exit 1; }
  		log "############## RPM is signed! ##################"
@@ -200,7 +201,7 @@ runTests()(
 	if [ -f "${filePath}" ]; then
 		log ""; log "";
 		log "Testing ${filePath} on ${testImage}..."
-		docker run --rm -it --name cli-test -v "${filePath}":${filePathInImage} ${testImage} \
+		docker run --rm --name cli-test -v "${filePath}":${filePathInImage} ${testImage} \
 			bash -c "${installCommand}       && jfrog -version | grep ${JFROG_CLI_VERSION} && \
 			         ${signatureTestCommand} && exit 0 || exit 1" \
 				|| { echo "ERROR: ############### Test failed! ###################"; exit 1; }
