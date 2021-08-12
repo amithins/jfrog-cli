@@ -96,8 +96,7 @@ def buildRpmAndDeb(version, architectures) {
         def gpgKeyFilePath = "$pwd/RPM-GPG-KEY-jfrog-cli"
         def gpgPassphraseFilePath = "$pwd/RPM-GPG-PASSPHRASE-jfrog-cli"
         writeFile(file: gpgKeyFilePath, text: "$rpmGpgKey")
-        //writeFile(file: gpgPassphraseFilePath, text: "$rpmSignPassphrase")
-        writeFile(file: gpgPassphraseFilePath, text: "1111111")
+        writeFile(file: gpgPassphraseFilePath, text: "$rpmSignPassphrase")
 
         print "*********"
         print "$gpgKeyFilePath"
