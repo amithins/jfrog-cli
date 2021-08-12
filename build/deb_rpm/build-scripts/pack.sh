@@ -307,12 +307,12 @@ main(){
                 JFROG_CLI_RUN_TEST="true"
                 shift 1
             ;;
-            --rpm-gpg-key)
-                RPM_GPG_KEY="$2"
+            --rpm-gpg-key-file)
+                RPM_GPG_KEY_FILE="$2"
                 shift 2
             ;;
-            --rpm-gpg-passphrase)
-                RPM_SIGN_PASSPHRASE="$2"
+            --rpm-gpg-passphrase-file)
+                RPM_SIGN_PASSPHRASE_FILE="$2"
                 shift 2
             ;;
             *)
@@ -322,10 +322,10 @@ main(){
         esac
     done
 
-	log "RPM_GPG_KEY"
-	log "$RPM_GPG_KEY"
-	log "RPM_GPG_PASSPHRASE"
-	log "$RPM_GPG_PASSPHRASE
+	log "RPM_GPG_KEY_FILE"
+	log "$RPM_GPG_KEY_FILE"
+	log "RPM_GPG_PASSPHRASE_FILE"
+	log "$RPM_GPG_PASSPHRASE_FILE"
 
 	: ${flavours:="rpm deb"}
 	: ${JFROG_CLI_RUN_TEST:="false"}

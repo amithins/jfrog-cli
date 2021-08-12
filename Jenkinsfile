@@ -92,8 +92,16 @@ def downloadToolsCert() {
 def buildRpmAndDeb(version, architectures) {
     boolean built = false
     withCredentials([string(credentialsId: 'rpm-gpg-key', variable: 'rpmGpgKey'), string(credentialsId: 'rpm-sign-passphrase', variable: 'rpmSignPassphrase')]) {
-        def gpgKey = rpmGpgKey
-        def gpgPassphrase = rpmSignPassphrase
+        def pwd = pwd()
+        def gpgKeyFilePath = "$pwd/RPM-GPG-KEY-jfrog-cli"
+        def gpgPassphraseFilePath = "$pwd/RPM-GPG-PASSPHRASE-jfrog-cli"
+        writeFile(file: gpgKeyFilePath, text: "$rpmGpgKey")
+        writeFile(file: gpgPassphraseFilePath, text: "$rpmSignPassphrase")
+
+        print "*********"
+        print "$gpgKeyFilePath"
+        print "$gpgPassphraseFilePath"
+
         for (int i = 0; i < architectures.size(); i++) {
             def currentBuild = architectures[i]
             // if (currentBuild.debianImage) {
@@ -111,7 +119,7 @@ def buildRpmAndDeb(version, architectures) {
                     build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
                     dir("$jfrogCliRepoDir") {
                         sh """#!/bin/bash
-                            build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $gpgKey --rpm-gpg-passphrase $gpgPassphrase
+                            build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key-file $gpgKeyFilePath --rpm-gpg-passphrase-file $gpgPassphraseFilePath
                         """
                         built = true
                     }
