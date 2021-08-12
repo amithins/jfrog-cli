@@ -111,7 +111,7 @@ def buildRpmAndDeb(version, architectures) {
                     build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
                     dir("$jfrogCliRepoDir") {
                         sh """#!/bin/bash
-                            build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rgpgKey --rpm-gpg-passphrase $rgpgPassphrase
+                            build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $gpgKey --rpm-gpg-passphrase $gpgPassphrase
                         """
                         built = true
                     }
