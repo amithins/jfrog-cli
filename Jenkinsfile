@@ -92,6 +92,8 @@ def downloadToolsCert() {
 def buildRpmAndDeb(version, architectures) {
     boolean built = false
     withCredentials([string(credentialsId: 'rpm-gpg-key', variable: 'rpmGpgKey'), string(credentialsId: 'rpm-sign-passphrase', variable: 'rpmSignPassphrase')]) {
+        def gpgKey = rpmGpgKey
+        def gpgPassphrase = rpmSignPassphrase
         for (int i = 0; i < architectures.size(); i++) {
             def currentBuild = architectures[i]
             // if (currentBuild.debianImage) {
@@ -109,7 +111,7 @@ def buildRpmAndDeb(version, architectures) {
                     build(currentBuild.goos, currentBuild.goarch, currentBuild.pkg, 'jfrog')
                     dir("$jfrogCliRepoDir") {
                         sh """#!/bin/bash
-                            build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rpmGpgKey --rpm-gpg-passphrase $rpmSignPassphrase
+                            build/deb_rpm/build-scripts/pack.sh -b jfrog -v $version -f rpm --rpm-build-image $currentBuild.rpmImage -t --rpm-test-image $currentBuild.rpmImage --rpm-gpg-key $rgpgKey --rpm-gpg-passphrase $rgpgPassphrase
                         """
                         built = true
                     }
