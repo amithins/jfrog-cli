@@ -92,7 +92,8 @@ def downloadToolsCert() {
 def buildRpmAndDeb(version, architectures) {
     boolean built = false
     withCredentials([string(credentialsId: 'rpm-gpg-key', variable: 'rpmGpgKey'), string(credentialsId: 'rpm-sign-passphrase', variable: 'rpmSignPassphrase')]) {
-        def dirPath = 'jfrog-cli/build/deb_rpm/pkg'
+        def pwd = pwd()
+        def dirPath = '$pwd/jfrog-cli/build/deb_rpm/pkg'
         def gpgKeyFilePath = "$dirPath/RPM-GPG-KEY-jfrog-cli"
         def gpgPassphraseFilePath = "$dirPath/RPM-GPG-PASSPHRASE-jfrog-cli"
         writeFile(file: gpgKeyFilePath, text: "$rpmGpgKey")
