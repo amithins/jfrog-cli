@@ -65,14 +65,10 @@ sign_rpm() {
 }
 
 KEY_FILE="${1}"
-log "---1"
 KEY_ID="${2}"
-log "---2"
 export PASSPHRASE="${3}"
 RPM_FILE="${4}"
 RPM_FILE_SIGNED="/tmp/jfrog-cli-rpm-signed.rpm"
-log "---3"
-#rpmInitSigning
-log "---4"
-#sign_rpm
-log "---5"
+rpmInitSigning
+sign_rpm
+
