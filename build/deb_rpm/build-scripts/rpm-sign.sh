@@ -72,7 +72,7 @@ export PASSPHRASE="${3}"
 RPM_FILE="${4}"
 RPM_FILE_SIGNED="/tmp/jfrog-cli-rpm-signed.rpm"
 log "---3"
-rpmInitSigning
+#rpmInitSigning
 log "---4"
-sign_rpm
+#sign_rpm
 log "---5"
