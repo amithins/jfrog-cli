@@ -75,7 +75,7 @@ log "---3"
 log $PASSPHRASE
 RPM_FILE="${4}"
 log "---4"
-log $RPM_FILE
+ls -l $RPM_FILE
 RPM_FILE_SIGNED="/tmp/jfrog-cli-rpm-signed.rpm"
 rpmInitSigning
 sign_rpm
