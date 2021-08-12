@@ -165,8 +165,7 @@ log "${filePath}"
  			-v "${gpgFileInHost}":"${gpgFileInImage}" \
  			-v "${JFROG_CLI_HOME}/build-scripts":${RPM_IMAGE_ROOT_DIR}/src \
  			${RPM_SIGN_IMAGE} \
- 				bash -c "yum install -y expect rpm-sign pinentry && \
- 						${RPM_IMAGE_ROOT_DIR}/src/${rpmSignScript} \"${gpgFileInImage}\" \"${keYID}\" \"${passphrase}\" \"${filePathInImage}\" \
+ 				bash -c "yum install -y expect rpm-sign pinentry \
  						&& exit 0 || exit 1" \
  			|| { echo "ERROR: ############### RPM Sign Failed! ###################"; exit 1; }
  		log "############## RPM is signed! ##################"
