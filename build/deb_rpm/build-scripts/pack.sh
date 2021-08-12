@@ -151,8 +151,8 @@ rpmSign()(
    local filePathInImage="/opt/${fileName}"
    local keYID="${RPM_SIGN_KEY_ID}"
    local passphrase="${RPM_SIGN_PASSPHRASE}"
-   local gpgFileInImage="/opt/${RPM_SIGN_KEY_NAME}"
-   local gpgFileInHost="${JFROG_CLI_PKG}/${RPM_SIGN_KEY_NAME}"
+   local gpgFileInImage="${RPM_GPG_KEY_FILE}"
+   local gpgFileInHost="${RPM_GPG_KEY_FILE}"
    local rpmSignScript="rpm-sign.sh"
 
  	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
@@ -324,8 +324,8 @@ main(){
 
 	log "RPM_GPG_KEY_FILE"
 	log "$RPM_GPG_KEY_FILE"
-	log "RPM_GPG_PASSPHRASE_FILE"
-	log "$RPM_GPG_PASSPHRASE_FILE"
+	log "RPM_SIGN_PASSPHRASE_FILE"
+	log "$RPM_SIGN_PASSPHRASE_FILE"
 
 	: ${flavours:="rpm deb"}
 	: ${JFROG_CLI_RUN_TEST:="false"}
@@ -335,7 +335,7 @@ main(){
 	: ${DEB_TEST_IMAGE:="${DEB_BUILD_IMAGE}"}
 	: ${RPM_TEST_IMAGE:="${RPM_BUILD_IMAGE}"}
 	: ${JFROG_CLI_RELEASE_VERSION:="1"}
-	: ${RPM_SIGN_PASSPHRASE:=""}
+	: ${RPM_SIGN_PASSPHRASE:=$(cat $RPM_SIGN_PASSPHRASE_FILE)}
 	: ${RPM_SIGN_KEY_ID:="JFrog Inc."}
 	: ${RPM_SIGN_KEY_NAME:="RPM-GPG-KEY-jfrog-cli"}
 
