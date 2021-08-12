@@ -161,7 +161,7 @@ log "${filePath}"
  	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
  		log ""; log "";
  		log "Initiating rpm sign on ${filePath}..."
- 		docker run --rm -it --name cli-rpm-sign -v "${filePath}":${filePathInImage} \
+ 		docker run --rm --name cli-rpm-sign -v "${filePath}":${filePathInImage} \
  			-v "${gpgFileInHost}":"${gpgFileInImage}" \
  			-v "${JFROG_CLI_HOME}/build-scripts":${RPM_IMAGE_ROOT_DIR}/src \
  			${RPM_SIGN_IMAGE} \
