@@ -151,9 +151,12 @@ rpmSign()(
    local filePathInImage="/opt/${fileName}"
    local keYID="${RPM_SIGN_KEY_ID}"
    local passphrase="${RPM_SIGN_PASSPHRASE}"
-   local gpgFileInImage="${RPM_GPG_KEY_FILE}"
+   local gpgFileInImage="/opt/RPM-GPG-KEY-jfrog-cli"
    local gpgFileInHost="${RPM_GPG_KEY_FILE}"
    local rpmSignScript="rpm-sign.sh"
+
+log "+++++++++++"
+log "${filePath}"
 
  	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
  		log ""; log "";
