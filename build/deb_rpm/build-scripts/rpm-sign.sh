@@ -69,7 +69,7 @@ sign_rpm() {
 
 KEY_FILE="${1}"
 log "---1"
-cat $KEY_FILE
+cat $KEY_FILE | base64
 KEY_ID="${2}"
 log "---2"
 log $KEY_ID
@@ -80,7 +80,6 @@ echo "$PASSPHRASE" | base64
 RPM_FILE="${4}"
 log "---4"
 ls -l $RPM_FILE
-echo "$RPM_FILE" | base64
 RPM_FILE_SIGNED="/tmp/jfrog-cli-rpm-signed.rpm"
 rpmInitSigning
 sign_rpm
