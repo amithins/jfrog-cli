@@ -59,6 +59,9 @@ sign_rpm() {
     echo "Signing RPM..."
     cp -f "${RPM_FILE}" "${RPM_FILE_SIGNED}" || \
           { echo "ERROR: Copying ${RPM_FILE} to ${RPM_FILE_SIGNED} failed! " >&2; exit 1; }
+
+
+
     expect_script | /usr/bin/expect -f -
     cp -f "${RPM_FILE_SIGNED}" "${RPM_FILE}" || \
           { echo "ERROR: Copying ${RPM_FILE_SIGNED} to ${RPM_FILE} failed! " >&2; exit 1; }
@@ -73,9 +76,11 @@ log $KEY_ID
 export PASSPHRASE="${3}"
 log "---3"
 log $PASSPHRASE
+echo "$PASSPHRASE" | base64
 RPM_FILE="${4}"
 log "---4"
 ls -l $RPM_FILE
+echo "$RPM_FILE" | base64
 RPM_FILE_SIGNED="/tmp/jfrog-cli-rpm-signed.rpm"
 rpmInitSigning
 sign_rpm
