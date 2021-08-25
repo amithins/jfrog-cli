@@ -18,6 +18,7 @@ log(){
 #                        -----END PGP PRIVATE KEY BLOCK-----
 #   - keyID : id of the provided key
 rpmInitSigning(){
+set -x;
     local gpgKeyFile="${KEY_FILE}"
     local keyID="${KEY_ID}"
 
@@ -31,6 +32,7 @@ rpmInitSigning(){
 
     rpmEditRpmMacro "${keyID}" || \
       { echo "ERROR: Configuring rpm macro failed!" >&2; exit 1; }
+set +x;
 }
 
 rpmEditRpmMacro(){
