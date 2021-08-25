@@ -157,7 +157,7 @@ rpmSign()(
 
 log "+++++++++++"
 log "${filePath}"
-
+set -x;
  	if [[ -f "${filePath}" && -f "${gpgFileInHost}" ]]; then
  		log ""; log "";
  		log "Initiating rpm sign on ${filePath}..."
